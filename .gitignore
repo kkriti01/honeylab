@@ -1,0 +1,10 @@
+ # Executables #
+###############
+*.pyc
+
+# Temporary files #
+###################
+*~
+*.sqlite3
+*.db
+*.DS_Store

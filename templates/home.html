@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Customer who ordered once</h1>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Count</th>
+        <th>Customer Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in order_count_one%}
+      <tr>
+        <td>{{item.count}}</td>
+        <td>{{item.name}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+    <h1>Bar graph of order distributions</h1>
+     <div id="container" style="height: 300px"></div>
+  </div>
+  <div class="col-sm-6">
+    <h1>Distribution of Customers</h1>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Orders</th>
+        <th>Count of Customer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>{{order_counts_one}}</td>
+      </tr>
+    <tr>
+        <td>2</td>
+        <td>{{order_count_two}}</td>
+      </tr>
+    <tr>
+        <td>3</td>
+        <td>{{order_count_three}}</td>
+      </tr>
+    <tr>
+        <td>4</td>
+        <td>{{order_count_four}}</td>
+      </tr>
+    <tr>
+        <td>5+</td>
+        <td>{{order_count_five}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+    <h3>Total Order count is: </h3> {{cust_count}}
+    <h3>Total sum for order is: </h3> {{amount.Amount__sum}}
+      </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var order_counts_1 = parseInt("{{order_counts_one|safe}}");
+      var order_count_2 = parseInt("{{order_count_two|safe}}");
+      var order_count_3 = parseInt("{{order_count_three|safe}}");
+      var order_count_4 = parseInt("{{order_count_four|safe}}");
+      var order_count_5 = parseInt("{{order_count_five|safe}}");
+      Highcharts.chart('container', {
+              title: {
+            text: 'Order Distribution'
+        },
+    xAxis: {
+        categories: [1,2,3,4,'5+']
+    },
+
+      series: [{
+              name: 'order count',
+        data: [order_counts_1, order_count_2, order_count_3, order_count_4, order_count_5],
+        type: 'column'
+    }]
+});
+
+    });
+    </script>
+</div>
+{% endblock content %}
